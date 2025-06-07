@@ -15,7 +15,7 @@ document.getElementById('transcribeBtn').addEventListener('click', async () => {
     formData.append('file', fileInput.files[0]);
 
     try {
-        const response = await fetch('http://localhost:5000/transcribe', {
+        const response = await fetch('http://localhost:5001/transcribe', {
             method: 'POST',
             body: formData
         });
