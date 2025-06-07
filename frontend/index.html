@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Transcriber</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 Video Transcriber</h1>
+        <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv">
+        <button id="transcribeBtn">Transcribe Video</button>
+        <div id="loading" class="hidden">Processing... ⏳</div>
+        <div class="result-container">
+            <h3>Transcript:</h3>
+            <div id="result"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
