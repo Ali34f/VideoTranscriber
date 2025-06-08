@@ -203,3 +203,21 @@ button:hover {
     background: #f0f0f0;
     color: #121212;
 }
+.preview-player {
+    max-width: 100%;
+    width: 100%;
+    max-height: 360px;
+    margin: 20px auto 0;
+    display: block;
+    border-radius: 6px;
+    background: #000; 
+    object-fit: contain;
+}
+
+#mediaPreview.hidden {
+    display: none;
+}
+
+.dark-mode .preview-player {
+    background-color: #1e1e1e;
+}

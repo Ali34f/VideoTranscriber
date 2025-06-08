@@ -5,9 +5,13 @@ const resultDiv = document.getElementById('result');
 const loadingDiv = document.getElementById('loading');
 const downloadBtn = document.getElementById('downloadBtn');
 const themeToggle = document.getElementById('themeToggle');
-const fileInfoDiv = document.getElementById('fileInfo'); // new element for feedback
+const fileInfoDiv = document.getElementById('fileInfo');
 
-// Handle drag-and-drop functionality
+const mediaPreview = document.getElementById('mediaPreview');
+const videoPlayer = document.getElementById('videoPlayer');
+const audioPlayer = document.getElementById('audioPlayer');
+
+// === Drag & Drop Setup ===
 dropZone.addEventListener('click', () => fileInput.click());
 
 dropZone.addEventListener('dragover', (e) => {
@@ -24,20 +28,57 @@ dropZone.addEventListener('drop', (e) => {
     dropZone.classList.remove('dragover');
     if (e.dataTransfer.files.length) {
         fileInput.files = e.dataTransfer.files;
-        updateFileInfo(fileInput.files[0]);
+        handleFileSelected(fileInput.files[0]);
     }
 });
 
-// Manual file selection
+// === Manual File Selection ===
 fileInput.addEventListener('change', () => {
     if (fileInput.files.length) {
-        updateFileInfo(fileInput.files[0]);
+        handleFileSelected(fileInput.files[0]);
     }
 });
 
-// Transcribe button logic
+// === File Handling & Preview ===
+function handleFileSelected(file) {
+    updateFileInfo(file);
+    showPreview(file);
+}
+
+function updateFileInfo(file) {
+    fileInfoDiv.textContent = `✅ Selected: ${file.name}`;
+    fileInfoDiv.classList.remove('hidden');
+}
+
+function showPreview(file) {
+    const url = URL.createObjectURL(file);
+    const type = file.type;
+
+    // Stop and reset both players
+    videoPlayer.pause();
+    audioPlayer.pause();
+    videoPlayer.removeAttribute('src');
+    audioPlayer.removeAttribute('src');
+    videoPlayer.load();
+    audioPlayer.load();
+
+    videoPlayer.classList.add('hidden');
+    audioPlayer.classList.add('hidden');
+    mediaPreview.classList.remove('hidden');
+
+    if (type.startsWith('video/')) {
+        videoPlayer.src = url;
+        videoPlayer.classList.remove('hidden');
+    } else if (type.startsWith('audio/')) {
+        audioPlayer.src = url;
+        audioPlayer.classList.remove('hidden');
+    }
+}
+
+// === Transcription Logic ===
 transcribeBtn.addEventListener('click', async () => {
-    if (!fileInput.files[0]) {
+    const file = fileInput.files[0];
+    if (!file) {
         alert("Please select a video or audio file first!");
         return;
     }
@@ -47,7 +88,7 @@ transcribeBtn.addEventListener('click', async () => {
     downloadBtn.classList.add('hidden');
 
     const formData = new FormData();
-    formData.append('file', fileInput.files[0]);
+    formData.append('file', file);
 
     try {
         const response = await fetch('http://localhost:5001/transcribe', {
@@ -62,7 +103,6 @@ transcribeBtn.addEventListener('click', async () => {
         } else {
             resultDiv.textContent = `${data.text}\n\n(Detected language: ${data.language})`;
 
-            // Enable download button
             downloadBtn.classList.remove('hidden');
             downloadBtn.onclick = () => {
                 const blob = new Blob([data.text], { type: 'text/plain' });
@@ -74,9 +114,7 @@ transcribeBtn.addEventListener('click', async () => {
                 URL.revokeObjectURL(url);
             };
 
-            // Auto-scroll to result
             resultDiv.scrollIntoView({ behavior: 'smooth' });
-
             showToast("✅ Transcription complete!");
         }
     } catch (error) {
@@ -86,30 +124,24 @@ transcribeBtn.addEventListener('click', async () => {
     }
 });
 
-// Theme toggle + save preference
+// === Theme Toggle ===
 themeToggle.addEventListener('click', () => {
-    const dark = document.body.classList.toggle('dark-mode');
-    localStorage.setItem("theme", dark ? "dark" : "light");
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
-// Load theme preference on page load
-window.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark-mode");
+// === Load Theme on Start ===
+window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
     }
 });
 
-// Toast helper
+// === Toast Notification ===
 function showToast(message) {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
-}
-
-// File info feedback
-function updateFileInfo(file) {
-    fileInfoDiv.textContent = `✅ Selected: ${file.name}`;
-    fileInfoDiv.classList.remove('hidden');
 }

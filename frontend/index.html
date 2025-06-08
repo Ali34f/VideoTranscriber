@@ -19,6 +19,24 @@
         <!-- File info confirmation -->
         <div id="fileInfo" class="file-info hidden"></div>
 
+        <!-- Media Preview -->
+        <div id="mediaPreview" class="hidden">
+            <video 
+                id="videoPlayer" 
+                controls 
+                class="preview-player hidden"
+                controlsList="nodownload"
+                preload="metadata"
+                playsinline
+            ></video>
+            <audio 
+                id="audioPlayer" 
+                controls 
+                class="preview-player hidden"
+                preload="metadata"
+            ></audio>
+        </div>
+
         <!-- Transcribe Button -->
         <button id="transcribeBtn">Transcribe Video</button>
 
