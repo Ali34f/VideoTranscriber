@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Video Transcriber</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>🎥 Video Transcriber</h1>
-        <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv">
+        <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv,.mp3,.wav,.m4a">
         <button id="transcribeBtn">Transcribe Video</button>
-        <div id="loading" class="hidden">Processing... ⏳</div>
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Transcribing...</p>
+        </div>
         <div class="result-container">
             <h3>Transcript:</h3>
             <div id="result"></div>
         </div>
+        <button id="downloadBtn" class="hidden">⬇️ Download Transcript</button>
+        <button id="themeToggle">🌓 Toggle Theme</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
