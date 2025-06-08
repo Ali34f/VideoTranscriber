@@ -1,9 +1,42 @@
-document.getElementById('transcribeBtn').addEventListener('click', async () => {
-    const fileInput = document.getElementById('videoUpload');
-    const resultDiv = document.getElementById('result');
-    const loadingDiv = document.getElementById('loading');
-    const downloadBtn = document.getElementById('downloadBtn');
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('videoUpload');
+const transcribeBtn = document.getElementById('transcribeBtn');
+const resultDiv = document.getElementById('result');
+const loadingDiv = document.getElementById('loading');
+const downloadBtn = document.getElementById('downloadBtn');
+const themeToggle = document.getElementById('themeToggle');
+const fileInfoDiv = document.getElementById('fileInfo'); // new element for feedback
 
+// Handle drag-and-drop functionality
+dropZone.addEventListener('click', () => fileInput.click());
+
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+});
+
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+});
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        updateFileInfo(fileInput.files[0]);
+    }
+});
+
+// Manual file selection
+fileInput.addEventListener('change', () => {
+    if (fileInput.files.length) {
+        updateFileInfo(fileInput.files[0]);
+    }
+});
+
+// Transcribe button logic
+transcribeBtn.addEventListener('click', async () => {
     if (!fileInput.files[0]) {
         alert("Please select a video or audio file first!");
         return;
@@ -41,6 +74,9 @@ document.getElementById('transcribeBtn').addEventListener('click', async () => {
                 URL.revokeObjectURL(url);
             };
 
+            // Auto-scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+
             showToast("✅ Transcription complete!");
         }
     } catch (error) {
@@ -50,14 +86,30 @@ document.getElementById('transcribeBtn').addEventListener('click', async () => {
     }
 });
 
-document.getElementById('themeToggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
+// Theme toggle + save preference
+themeToggle.addEventListener('click', () => {
+    const dark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem("theme", dark ? "dark" : "light");
 });
 
+// Load theme preference on page load
+window.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+});
+
+// Toast helper
 function showToast(message) {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
+}
+
+// File info feedback
+function updateFileInfo(file) {
+    fileInfoDiv.textContent = `✅ Selected: ${file.name}`;
+    fileInfoDiv.classList.remove('hidden');
 }

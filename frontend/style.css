@@ -152,3 +152,38 @@ button:hover {
     z-index: 9999;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
+#dropZone {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    background: #fefefe;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+#dropZone p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+}
+
+#dropZone.dragover {
+    background: #e8f4ff;
+    border-color: #3498db;
+}
+
+#videoUpload {
+    display: none;
+}.file-info {
+    text-align: center;
+    font-size: 14px;
+    color: #2ecc71;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+.dark-mode .file-info {
+    color: #78e08f;
+}

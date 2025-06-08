@@ -9,14 +9,26 @@
 <body>
     <div class="container">
         <h1>🎥 Video Transcriber</h1>
-        <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv,.mp3,.wav,.m4a">
+
+        <!-- Drag & Drop Upload Zone -->
+        <div id="dropZone">
+            <p>📂 Drag & drop a video/audio file here or click to select</p>
+            <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv,.mp3,.wav,.m4a">
+        </div>
+
+        <!-- File info confirmation -->
+        <div id="fileInfo" class="file-info hidden"></div>
+
+        <!-- Transcribe Button -->
         <button id="transcribeBtn">Transcribe Video</button>
 
+        <!-- Loading Spinner -->
         <div id="loading" class="hidden">
             <div class="spinner"></div>
             <p>Transcribing...</p>
         </div>
 
+        <!-- Transcript Output -->
         <div class="result-container">
             <h3>Transcript:</h3>
             <div id="result"></div>
