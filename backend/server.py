@@ -3,7 +3,7 @@ from flask_cors import CORS
 import whisper
 import os
 import tempfile
-import logging  # Added for better error tracking
+import logging  # Added for logging
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS
