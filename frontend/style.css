@@ -91,14 +91,14 @@ button:hover {
 .action-row {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px; /* reduced from 15px */
     margin-top: 20px;
 }
 
 .action-btn {
     background: none;
     color: #3498db;
-    border: 1px solid #3498db;
+    border: 1px solid #ccc; /* softer, subtler border */
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
@@ -115,19 +115,24 @@ button:hover {
     background: #121212;
     color: #f0f0f0;
 }
+
 .dark-mode .container {
     background: #1e1e1e;
 }
+
 .dark-mode input[type="file"] {
     border-color: #666;
 }
+
 .dark-mode .result-container {
     background: #2a2a2a;
 }
+
 .dark-mode .action-btn {
     color: #f0f0f0;
-    border-color: #f0f0f0;
+    border-color: #888;
 }
+
 .dark-mode .action-btn:hover {
     background: #f0f0f0;
     color: #121212;
@@ -136,7 +141,7 @@ button:hover {
 /* Toast styling */
 .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 60px; 
     left: 50%;
     transform: translateX(-50%);
     background: #27ae60;
@@ -145,4 +150,5 @@ button:hover {
     border-radius: 5px;
     font-weight: 500;
     z-index: 9999;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
