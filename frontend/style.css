@@ -87,17 +87,28 @@ button:hover {
     margin-top: 10px;
 }
 
-.toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #27ae60;
-    color: white;
-    padding: 12px 24px;
+/* Clean action row styling */
+.action-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.action-btn {
+    background: none;
+    color: #3498db;
+    border: 1px solid #3498db;
+    padding: 8px 16px;
     border-radius: 5px;
-    font-weight: 500;
-    z-index: 9999;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    background: #3498db;
+    color: white;
 }
 
 .dark-mode {
@@ -112,4 +123,26 @@ button:hover {
 }
 .dark-mode .result-container {
     background: #2a2a2a;
+}
+.dark-mode .action-btn {
+    color: #f0f0f0;
+    border-color: #f0f0f0;
+}
+.dark-mode .action-btn:hover {
+    background: #f0f0f0;
+    color: #121212;
+}
+
+/* Toast styling */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #27ae60;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-weight: 500;
+    z-index: 9999;
 }

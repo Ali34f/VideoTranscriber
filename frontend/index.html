@@ -11,16 +11,22 @@
         <h1>🎥 Video Transcriber</h1>
         <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv,.mp3,.wav,.m4a">
         <button id="transcribeBtn">Transcribe Video</button>
+
         <div id="loading" class="hidden">
             <div class="spinner"></div>
             <p>Transcribing...</p>
         </div>
+
         <div class="result-container">
             <h3>Transcript:</h3>
             <div id="result"></div>
         </div>
-        <button id="downloadBtn" class="hidden">⬇️ Download Transcript</button>
-        <button id="themeToggle">🌓 Toggle Theme</button>
+
+        <!-- Action Buttons -->
+        <div class="action-row">
+            <button id="downloadBtn" class="hidden action-btn">⬇️ Download</button>
+            <button id="themeToggle" class="action-btn">🌓 Theme</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
