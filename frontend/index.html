@@ -2,60 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Transcriber</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
     <div class="container">
-        <h1>🎥 Video Transcriber</h1>
-
-        <!-- Drag & Drop Upload Zone -->
-        <div id="dropZone">
-            <p>📂 Drag & drop a video/audio file here or click to select</p>
-            <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv,.mp3,.wav,.m4a">
+        <div class="header">
+            <h1><i class="fas fa-video"></i> Video Transcriber</h1>
+            <p>Transform your audio and video content into accurate text transcriptions</p>
         </div>
 
-        <!-- File info confirmation -->
-        <div id="fileInfo" class="file-info hidden"></div>
+        <div class="upload-section">
+            <div id="dropZone">
+                <div class="drop-content">
+                    <div class="drop-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="drop-text">Drag & drop your media file here</div>
+                    <div class="drop-subtext">or click to browse • Supports MP4, MOV, MKV, MP3, WAV, M4A</div>
+                </div>
+                <input type="file" id="videoUpload" accept=".mp4,.mov,.mkv,.mp3,.wav,.m4a,.webm">
+            </div>
 
-        <!-- Media Preview -->
-        <div id="mediaPreview" class="hidden">
-            <video 
-                id="videoPlayer" 
-                controls 
-                class="preview-player hidden"
-                controlsList="nodownload"
-                preload="metadata"
-                playsinline
-            ></video>
-            <audio 
-                id="audioPlayer" 
-                controls 
-                class="preview-player hidden"
-                preload="metadata"
-            ></audio>
+            <div id="fileInfo" class="file-info hidden">
+                <i class="fas fa-check-circle"></i>
+                <span id="fileInfoText"></span>
+            </div>
         </div>
 
-        <!-- Transcribe Button -->
-        <button id="transcribeBtn">Transcribe Video</button>
+        <div id="mediaPreview" class="media-preview hidden">
+            <video id="videoPlayer" class="preview-player hidden" controls controlsList="nodownload" preload="metadata" playsinline></video>
+            <audio id="audioPlayer" class="preview-player hidden" controls preload="metadata"></audio>
+        </div>
 
-        <!-- Loading Spinner -->
-        <div id="loading" class="hidden">
+        <button id="transcribeBtn" class="btn btn-primary transcribe-btn">
+            <i class="fas fa-magic"></i>
+            Start Transcription
+        </button>
+
+        <div id="loading" class="loading hidden">
             <div class="spinner"></div>
-            <p>Transcribing...</p>
+            <div class="loading-text">Processing your media...</div>
+            <div class="loading-subtext">This may take a few moments depending on file size</div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-indeterminate"></div>
+            </div>
         </div>
 
-        <!-- Transcript Output -->
         <div class="result-container">
-            <h3>Transcript:</h3>
-            <div id="result"></div>
+            <div class="result-header">
+                <div class="result-title">
+                    <i class="fas fa-file-alt"></i>
+                    Transcript
+                </div>
+                <div id="languageInfo" class="hidden" style="font-size: 0.875rem; color: var(--text-secondary);"></div>
+            </div>
+            <div id="result" class="result-content">Your transcription will appear here...</div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="action-row">
-            <button id="downloadBtn" class="hidden action-btn">⬇️ Download</button>
-            <button id="themeToggle" class="action-btn">🌓 Theme</button>
+            <button id="downloadBtn" class="btn btn-secondary hidden">
+                <i class="fas fa-download"></i>
+                Download Transcript
+            </button>
+            <button id="copyBtn" class="btn btn-secondary hidden">
+                <i class="fas fa-copy"></i>
+                Copy to Clipboard
+            </button>
         </div>
     </div>
 

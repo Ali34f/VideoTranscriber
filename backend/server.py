@@ -3,8 +3,9 @@ from flask_cors import CORS
 import whisper
 import os
 import tempfile
-import logging  # Added for logging
+import logging
 
+# Added for logging
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
@@ -25,13 +26,13 @@ except Exception as e:
 def transcribe():
     if 'file' not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
-    
+        
     video = request.files['file']
     if video.filename == '':
         return jsonify({"error": "No file selected"}), 400
 
     # Validate file extension
-    allowed_extensions = {'.mp4', '.mov', '.mkv', '.webm'}
+    allowed_extensions = {'.mp4', '.mov', '.mkv', '.webm', '.mp3', '.wav', '.m4a'}
     if not any(video.filename.lower().endswith(ext) for ext in allowed_extensions):
         return jsonify({"error": "Invalid file type"}), 400
 
@@ -41,25 +42,25 @@ def transcribe():
         fd, temp_path = tempfile.mkstemp(suffix=".mp4")
         os.close(fd)  # Close the file descriptor
         video.save(temp_path)
-        
+                
         # Verify file was saved
         if not os.path.exists(temp_path):
             return jsonify({"error": "Failed to save file"}), 500
-        
+                
         # Transcribe with progress feedback
         logger.info(f"Processing file: {video.filename}")
         result = model.transcribe(temp_path)
         logger.info("Transcription completed")
-        
+                
         return jsonify({
             "text": result["text"],
             "language": result["language"]
         })
-        
+            
     except Exception as e:
         logger.error(f"Transcription failed: {str(e)}")
         return jsonify({"error": f"Transcription error: {str(e)}"}), 500
-        
+            
     finally:
         # Cleanup temp file
         if temp_path and os.path.exists(temp_path):
@@ -68,7 +69,7 @@ def transcribe():
 if __name__ == '__main__':
     app.run(
         debug=True,
-        host='0.0.0.0',  
+        host='0.0.0.0', 
         port=5001,
         threaded=True  
     )
