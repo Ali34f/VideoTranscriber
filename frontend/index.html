@@ -9,11 +9,91 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Welcome Back</h2>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginUsername">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" id="loginUsername" placeholder="Enter your username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Log In
+                </button>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" id="showSignup">Sign up</a>
+                </p>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form hidden">
+                <div class="form-group">
+                    <label for="signupUsername">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" id="signupUsername" placeholder="Choose a username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="signupPassword" placeholder="Create a password (min 6 characters)" required minlength="6" autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" id="showLogin">Log in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
     <div class="theme-toggle" id="themeToggle">
         <i class="fas fa-moon"></i>
     </div>
 
-    <div class="container">
+    <!-- User Menu -->
+    <div class="user-menu hidden" id="userMenu">
+        <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span id="usernameDisplay"></span>
+        </div>
+        <div class="user-menu-dropdown">
+            <button id="profileBtn" class="dropdown-item">
+                <i class="fas fa-user"></i> Profile
+            </button>
+            <button id="historyBtn" class="dropdown-item">
+                <i class="fas fa-history"></i> History
+            </button>
+            <button id="logoutBtn" class="dropdown-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="container" id="appContainer" style="display: none;">
         <div class="header">
             <h1><i class="fas fa-video"></i> Video Transcriber</h1>
             <p>Transform your audio and video content into accurate text transcriptions</p>
@@ -76,6 +156,59 @@
                 <i class="fas fa-copy"></i>
                 Copy to Clipboard
             </button>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user"></i> My Profile</h2>
+                <button class="close-modal" id="closeProfileModal">&times;</button>
+            </div>
+            <div class="profile-content">
+                <div class="profile-stat">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                        <div class="stat-label">Username</div>
+                        <div class="stat-value" id="profileUsername">-</div>
+                    </div>
+                </div>
+                <div class="profile-stat">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <div class="stat-label">Email</div>
+                        <div class="stat-value" id="profileEmail">-</div>
+                    </div>
+                </div>
+                <div class="profile-stat">
+                    <i class="fas fa-calendar"></i>
+                    <div>
+                        <div class="stat-label">Member Since</div>
+                        <div class="stat-value" id="profileMemberSince">-</div>
+                    </div>
+                </div>
+                <div class="profile-stat">
+                    <i class="fas fa-file-alt"></i>
+                    <div>
+                        <div class="stat-label">Total Transcriptions</div>
+                        <div class="stat-value" id="profileTransCount">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="modal hidden">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2><i class="fas fa-history"></i> Transcription History</h2>
+                <button class="close-modal" id="closeHistoryModal">&times;</button>
+            </div>
+            <div id="historyContent" class="history-content">
+                <p class="loading-text">Loading history...</p>
+            </div>
         </div>
     </div>
 
